@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.charge.dao.ChargeMapper" >
+  <resultMap id="BaseResultMap" type="com.charge.model.Charge" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="AREA" property="area" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="AC_BUILDED" property="acBuilded" jdbcType="INTEGER" />
+    <result column="AC_BUILDING" property="acBuilding" jdbcType="INTEGER" />
+    <result column="DC_BUILDED" property="dcBuilded" jdbcType="INTEGER" />
+    <result column="DC_BUILDING" property="dcBuilding" jdbcType="INTEGER" />
+    <result column="LONGITUDE" property="longitude" jdbcType="DOUBLE" />
+    <result column="LATITUDE" property="latitude" jdbcType="DOUBLE" />
+    <result column="BEGIN_TIME" property="beginTime" jdbcType="VARCHAR" />
+    <result column="TEL" property="tel" jdbcType="VARCHAR" />
+    <result column="STANDARD" property="standard" jdbcType="INTEGER" />
+    <result column="STANDARD_NAME" property="standardName" jdbcType="VARCHAR" />
+    <result column="FEE_STANDARD" property="feeStandard" jdbcType="VARCHAR" />
+    <result column="DETAIL" property="detail" jdbcType="VARCHAR" />
+    <result column="DEPART" property="depart" jdbcType="VARCHAR" />
+    <result column="CHARGE_NO" property="chargeNo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, CREATE_TIME, UPDATE_TIME, NAME, AREA, ADDRESS, AC_BUILDED, AC_BUILDING, DC_BUILDED, 
+    DC_BUILDING, LONGITUDE, LATITUDE, BEGIN_TIME, TEL, STANDARD, STANDARD_NAME, FEE_STANDARD, 
+    DETAIL, DEPART, CHARGE_NO
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.charge.model.ChargeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_charge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_charge
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_charge
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.charge.model.ChargeExample" >
+    delete from sys_charge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.charge.model.Charge" >
+    insert into sys_charge (ID, CREATE_TIME, UPDATE_TIME, 
+      NAME, AREA, ADDRESS, 
+      AC_BUILDED, AC_BUILDING, DC_BUILDED, 
+      DC_BUILDING, LONGITUDE, LATITUDE, 
+      BEGIN_TIME, TEL, STANDARD, 
+      STANDARD_NAME, FEE_STANDARD, DETAIL, 
+      DEPART, CHARGE_NO)
+    values (#{id,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{name,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{acBuilded,jdbcType=INTEGER}, #{acBuilding,jdbcType=INTEGER}, #{dcBuilded,jdbcType=INTEGER}, 
+      #{dcBuilding,jdbcType=INTEGER}, #{longitude,jdbcType=DOUBLE}, #{latitude,jdbcType=DOUBLE}, 
+      #{beginTime,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{standard,jdbcType=INTEGER}, 
+      #{standardName,jdbcType=VARCHAR}, #{feeStandard,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, 
+      #{depart,jdbcType=VARCHAR}, #{chargeNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.charge.model.Charge" >
+    insert into sys_charge
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="area != null" >
+        AREA,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="acBuilded != null" >
+        AC_BUILDED,
+      </if>
+      <if test="acBuilding != null" >
+        AC_BUILDING,
+      </if>
+      <if test="dcBuilded != null" >
+        DC_BUILDED,
+      </if>
+      <if test="dcBuilding != null" >
+        DC_BUILDING,
+      </if>
+      <if test="longitude != null" >
+        LONGITUDE,
+      </if>
+      <if test="latitude != null" >
+        LATITUDE,
+      </if>
+      <if test="beginTime != null" >
+        BEGIN_TIME,
+      </if>
+      <if test="tel != null" >
+        TEL,
+      </if>
+      <if test="standard != null" >
+        STANDARD,
+      </if>
+      <if test="standardName != null" >
+        STANDARD_NAME,
+      </if>
+      <if test="feeStandard != null" >
+        FEE_STANDARD,
+      </if>
+      <if test="detail != null" >
+        DETAIL,
+      </if>
+      <if test="depart != null" >
+        DEPART,
+      </if>
+      <if test="chargeNo != null" >
+        CHARGE_NO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="acBuilded != null" >
+        #{acBuilded,jdbcType=INTEGER},
+      </if>
+      <if test="acBuilding != null" >
+        #{acBuilding,jdbcType=INTEGER},
+      </if>
+      <if test="dcBuilded != null" >
+        #{dcBuilded,jdbcType=INTEGER},
+      </if>
+      <if test="dcBuilding != null" >
+        #{dcBuilding,jdbcType=INTEGER},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="beginTime != null" >
+        #{beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="standard != null" >
+        #{standard,jdbcType=INTEGER},
+      </if>
+      <if test="standardName != null" >
+        #{standardName,jdbcType=VARCHAR},
+      </if>
+      <if test="feeStandard != null" >
+        #{feeStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="depart != null" >
+        #{depart,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeNo != null" >
+        #{chargeNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.charge.model.ChargeExample" resultType="java.lang.Integer" >
+    select count(*) from sys_charge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_charge
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        AREA = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        ADDRESS = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acBuilded != null" >
+        AC_BUILDED = #{record.acBuilded,jdbcType=INTEGER},
+      </if>
+      <if test="record.acBuilding != null" >
+        AC_BUILDING = #{record.acBuilding,jdbcType=INTEGER},
+      </if>
+      <if test="record.dcBuilded != null" >
+        DC_BUILDED = #{record.dcBuilded,jdbcType=INTEGER},
+      </if>
+      <if test="record.dcBuilding != null" >
+        DC_BUILDING = #{record.dcBuilding,jdbcType=INTEGER},
+      </if>
+      <if test="record.longitude != null" >
+        LONGITUDE = #{record.longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.latitude != null" >
+        LATITUDE = #{record.latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.beginTime != null" >
+        BEGIN_TIME = #{record.beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tel != null" >
+        TEL = #{record.tel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.standard != null" >
+        STANDARD = #{record.standard,jdbcType=INTEGER},
+      </if>
+      <if test="record.standardName != null" >
+        STANDARD_NAME = #{record.standardName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.feeStandard != null" >
+        FEE_STANDARD = #{record.feeStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detail != null" >
+        DETAIL = #{record.detail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.depart != null" >
+        DEPART = #{record.depart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargeNo != null" >
+        CHARGE_NO = #{record.chargeNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_charge
+    set ID = #{record.id,jdbcType=BIGINT},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      AREA = #{record.area,jdbcType=VARCHAR},
+      ADDRESS = #{record.address,jdbcType=VARCHAR},
+      AC_BUILDED = #{record.acBuilded,jdbcType=INTEGER},
+      AC_BUILDING = #{record.acBuilding,jdbcType=INTEGER},
+      DC_BUILDED = #{record.dcBuilded,jdbcType=INTEGER},
+      DC_BUILDING = #{record.dcBuilding,jdbcType=INTEGER},
+      LONGITUDE = #{record.longitude,jdbcType=DOUBLE},
+      LATITUDE = #{record.latitude,jdbcType=DOUBLE},
+      BEGIN_TIME = #{record.beginTime,jdbcType=VARCHAR},
+      TEL = #{record.tel,jdbcType=VARCHAR},
+      STANDARD = #{record.standard,jdbcType=INTEGER},
+      STANDARD_NAME = #{record.standardName,jdbcType=VARCHAR},
+      FEE_STANDARD = #{record.feeStandard,jdbcType=VARCHAR},
+      DETAIL = #{record.detail,jdbcType=VARCHAR},
+      DEPART = #{record.depart,jdbcType=VARCHAR},
+      CHARGE_NO = #{record.chargeNo,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.charge.model.Charge" >
+    update sys_charge
+    <set >
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        AREA = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="acBuilded != null" >
+        AC_BUILDED = #{acBuilded,jdbcType=INTEGER},
+      </if>
+      <if test="acBuilding != null" >
+        AC_BUILDING = #{acBuilding,jdbcType=INTEGER},
+      </if>
+      <if test="dcBuilded != null" >
+        DC_BUILDED = #{dcBuilded,jdbcType=INTEGER},
+      </if>
+      <if test="dcBuilding != null" >
+        DC_BUILDING = #{dcBuilding,jdbcType=INTEGER},
+      </if>
+      <if test="longitude != null" >
+        LONGITUDE = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null" >
+        LATITUDE = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="beginTime != null" >
+        BEGIN_TIME = #{beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        TEL = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="standard != null" >
+        STANDARD = #{standard,jdbcType=INTEGER},
+      </if>
+      <if test="standardName != null" >
+        STANDARD_NAME = #{standardName,jdbcType=VARCHAR},
+      </if>
+      <if test="feeStandard != null" >
+        FEE_STANDARD = #{feeStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        DETAIL = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="depart != null" >
+        DEPART = #{depart,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeNo != null" >
+        CHARGE_NO = #{chargeNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.charge.model.Charge" >
+    update sys_charge
+    set CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      NAME = #{name,jdbcType=VARCHAR},
+      AREA = #{area,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      AC_BUILDED = #{acBuilded,jdbcType=INTEGER},
+      AC_BUILDING = #{acBuilding,jdbcType=INTEGER},
+      DC_BUILDED = #{dcBuilded,jdbcType=INTEGER},
+      DC_BUILDING = #{dcBuilding,jdbcType=INTEGER},
+      LONGITUDE = #{longitude,jdbcType=DOUBLE},
+      LATITUDE = #{latitude,jdbcType=DOUBLE},
+      BEGIN_TIME = #{beginTime,jdbcType=VARCHAR},
+      TEL = #{tel,jdbcType=VARCHAR},
+      STANDARD = #{standard,jdbcType=INTEGER},
+      STANDARD_NAME = #{standardName,jdbcType=VARCHAR},
+      FEE_STANDARD = #{feeStandard,jdbcType=VARCHAR},
+      DETAIL = #{detail,jdbcType=VARCHAR},
+      DEPART = #{depart,jdbcType=VARCHAR},
+      CHARGE_NO = #{chargeNo,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
