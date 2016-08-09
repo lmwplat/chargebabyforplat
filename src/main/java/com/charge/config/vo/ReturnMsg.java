@@ -20,5 +20,12 @@ public class ReturnMsg {
     public static final String USERNAME_EXIST = "1001";
     /**用户名不存在*/
     public static final String USERNAME_NO_EXIST = "1002";
+    /**用户名密码错误*/
+    public static final String USERNAME_PASS_ERROR = "1003";
 
+
+    /**apk版本信息不存在*/
+    public static final String APK_VERSION_NO_EXIST = "1101";
+    /**apk版本已经是最新*/
+    public static final String APK_VERSION_LASTEST = "1102";
 }

@@ -70,7 +70,8 @@
     <jackson.version>2.5.2</jackson.version>
     <commons.fileupload.version>1.3</commons.fileupload.version>
     <commons.lang3.version>3.4</commons.lang3.version>
-
+    <google.guava.version>r05</google.guava.version>
+    <commons-net.version>3.5</commons-net.version>
 
     <java.version>1.8</java.version>
     <project.build.jdk>1.8</project.build.jdk>
@@ -182,6 +183,11 @@
       <version>${jackson.version}</version>
     </dependency>
     <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${google.guava.version}</version>
+    </dependency>
+    <dependency>
       <groupId>commons-fileupload</groupId>
       <artifactId>commons-fileupload</artifactId>
       <version>${commons.fileupload.version}</version>
@@ -206,6 +212,13 @@
       <artifactId>fastjson</artifactId>
       <version>${fastjson.version}</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/commons-net/commons-net -->
+    <dependency>
+      <groupId>commons-net</groupId>
+      <artifactId>commons-net</artifactId>
+      <version>${commons-net.version}</version>
+    </dependency>
+
   </dependencies>
   <build>
     <finalName>chargebabyforplat</finalName>
