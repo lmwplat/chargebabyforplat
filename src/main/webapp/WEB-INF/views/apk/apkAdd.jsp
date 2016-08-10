@@ -33,20 +33,9 @@
 				alert('请选择至少一个文件进行上传！');
 				return false;
 			}
-			var code = $("#versionCode").val().trim();
 			var top = $("#top").val();
 
 			var reg = /^\d+$/;
-			if(code==""){
-				alert('请填写版本号！');
-				return false;
-			}else if(!reg.test(code)){
-				alert('请填写整数！');
-				return false;
-			}else if(parseInt(top)>=parseInt(code)){
-				alert('请上传更高版本！');
-				return false;
-			}
 
 			if (uploader.files.length > 0) {// 判断队列中是否有文件需要上传
 				uploader.start();
@@ -82,64 +71,57 @@
 			browse_button : 'pickfiles',//选择文件的按钮
 			container : 'container',//文件上传容器
 			runtimes : 'html5,flash',//设置运行环境，会按设置的顺序，可以选择的值有html5,gears,flash,silverlight,browserplus,html4
-			url : sy.contextUrl + '/uploadServlet?path=apk',//上传文件路径
-			max_file_size : '100mb',//100b, 10kb, 10mb, 1gb
-			chunk_size : 0,//分块大小，小于这个大小的不分块
+			//flash_swf_url : '${pageContext.request.contextPath}/jslib/plupload_1_5_7/plupload/js/plupload.flash.swf',// Flash环境路径设置
+			//silverlight_xap_url : '${pageContext.request.contextPath}/jslib/plupload_1_5_7/plupload/js/plupload.silverlight.xap',//silverlight环境路径设置
+			url : '${pageContext.request.contextPath}/uploadServlet',//上传文件路径
+			max_file_size : '3gb',//100b, 10kb, 10mb, 1gb
+			chunk_size : '1mb',//分块大小，小于这个大小的不分块
 			unique_names : true,//生成唯一文件名
-			multi_selection: false,//是否可以在文件浏览对话框中选择多个文件
 			// 如果可能的话，压缩图片大小
 			// resize : { width : 320, height : 240, quality : 90 },
 			// 指定要浏览的文件类型
 			filters : [ {
-				title : 'apk files',
-				extensions : 'apk'
+				title : 'Image files',
+				extensions : 'jpg,gif,png'
+			}, {
+				title : 'Zip files',
+				extensions : 'apk,7z'
 			} ]
 		});
-
-		uploader.init();
-		uploader.bind('Init', function(uploader, params) {//初始化
+		uploader.bind('Init', function(up, params) {//初始化
 			//$('#filelist').html("<div>当前运行环境: " + params.runtime + "</div>");
 			$('#filelist').html("");
 		});
 		uploader.bind('BeforeUpload', function(uploader, file) {//上传之前
 			$('.plupload_delete').hide();
 		});
-		uploader.bind('FilesAdded', function(uploader, files) {//选择文件后
+		uploader.bind('FilesAdded', function(up, files) {//选择文件后
 			$.each(files, function(i, file) {
-				$('#filelist').empty();
-				$('#filelist').append('<div id="' + file.id + '">' + file.name + ' <b>(' + plupload.formatSize(file.size) + ') </b>' + '&nbsp;<span onclick="uploader.removeFile(uploader.getFile($(this).parent().attr(\'id\')));$(this).parent().remove();" style="cursor: pointer;" class="plupload_delete">删除</span></div>');
-				//$('#f1').append('<input type="hidden" name="url" value= "'+"/apkVersion/"+ file.name+'"/>');
-				//$('#f1').append('<input type="hidden" name="versionName" value="'+file.name+'"/><br/>');
-				$("#versionName").val(file.name);
-				//$('#f1').append('<input type="hidden" name="size" value="'+file.size+'"/><br/>');
-				$("#size").val(file.size);
+				$('#filelist').append('<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b>' + '&nbsp;<span onclick="uploader.removeFile(uploader.getFile($(this).parent().attr(\'id\')));$(this).parent().remove();" style="cursor: pointer;" class="plupload_delete">删除</span></div>');
 			});
-			uploader.refresh();
-			$('#pickfiles').hide();
+			up.refresh();
 		});
-
-		uploader.bind('FilesRemoved', function(uploader, files) {//当文件从上传队列移除后触发
-			$('#pickfiles').show();
-			uploader.refresh();
-
-		});
-
-		uploader.bind('UploadProgress', function(uploader, file) {//上传进度
+		uploader.bind('UploadProgress', function(up, file) {//上传进度
 			$('#' + file.id + " b").html(file.percent + "%");
 		});
-		uploader.bind('Error', function(uploader, err) {//出现错误
+		uploader.bind('Error', function(up, err) {//出现错误
 			$('#filelist').append("<div>Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : "") + "</div>");
-			uploader.refresh();
+			up.refresh();
 		});
-		uploader.bind('FileUploaded', function(uploader, file, responseObject) {//上传完毕
+		uploader.bind('FileUploaded', function(up, file, info) {//上传完毕
 			$('#' + file.id + " b").html("100%");
-			var result = eval('('+responseObject.response+')');
-			$("#url").val(result.saveUrl);
+
+			var response = $.parseJSON(info.response);
+			if (response.status) {
+				$('#f1').append('<input type="hidden" name="fileUrl" value="'+response.fileUrl+'"/>');
+				$('#f1').append('<input type="hidden" name="fileName" value="'+file.name+'"/><br/>');
+			}
 		});
-
-
-
-
+		uploader.init();
+		$('#uploadfiles').click(function(e) {
+			uploader.start();
+			e.preventDefault();
+		});
 	});
 </script>
 </head>
