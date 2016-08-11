@@ -53,7 +53,7 @@ public class LoginAdminController extends BaseController {
      */
     @RequestMapping(value = "/north")
     public String north() throws Exception {
-        return "/layout/north";
+        return "layout/north";
     }
 
 
@@ -64,7 +64,7 @@ public class LoginAdminController extends BaseController {
      */
     @RequestMapping(value = "/south")
     public String south() throws Exception {
-        return "/layout/south";
+        return "layout/south";
     }
     /*
 	 * 到达后台管理员“用户系统管理-用户管理”页面
@@ -72,7 +72,7 @@ public class LoginAdminController extends BaseController {
 	*/
     @RequestMapping("/user")
     public String toUserAdmin()	{
-        return "/user/user" ;
+        return "user/user" ;
     }
 
     /**
@@ -159,7 +159,7 @@ public class LoginAdminController extends BaseController {
      */
     @RequestMapping("/userAdmin")
     public String userAdmin() {
-        return "/user/user";
+        return "user/user";
     }
 
     /**
@@ -169,6 +169,6 @@ public class LoginAdminController extends BaseController {
      */
     @RequestMapping("/apkVersionAdmin")
     public String apkVersionAdmin() {
-        return "/apk/apkVersion";
+        return "apk/apkVersion";
     }
 }

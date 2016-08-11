@@ -31,7 +31,7 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping("/{id}/showUser")
-    public Json showUser(@PathVariable Long id) {
+    public Json showUser(@PathVariable Long id) throws Exception {
         Json json = new Json();
         User u = userService.getUserById(id);
         json.setMsg("成功");

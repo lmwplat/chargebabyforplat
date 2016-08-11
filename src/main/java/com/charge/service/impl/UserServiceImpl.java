@@ -20,8 +20,13 @@ public class UserServiceImpl implements UserServiceI {
     private UserMapper userMapper;
 
     @Override
-    public User getUserById(Long id) {
-        return userMapper.selectByPrimaryKey(id);
+    public User getUserById(Long id)  throws Exception{
+        User user = userMapper.selectByPrimaryKey(id);
+        if (user != null && user.getIsLock() == false){
+            return user;
+        }else{
+            return null;
+        }
     }
 
     /**
@@ -30,7 +35,7 @@ public class UserServiceImpl implements UserServiceI {
      * @param password 密码
      */
     @Override
-    public Json reg(String username, String password) {
+    public Json reg(String username, String password)  throws Exception{
         Json json = new Json();
        // User user = new User();
         User user = userMapper.selectByUsername(username);
@@ -60,7 +65,7 @@ public class UserServiceImpl implements UserServiceI {
      * @return
      */
     @Override
-    public User login(String username, String password) {
+    public User login(String username, String password)  throws Exception{
 
 
         return userMapper.selectByUsernamePass(username, password);
@@ -73,7 +78,7 @@ public class UserServiceImpl implements UserServiceI {
      * @return
      */
     @Override
-    public Json confirm(String username, String password) {
+    public Json confirm(String username, String password)  throws Exception{
         Json json = new Json();
 
         User user = userMapper.selectByUsername(username);

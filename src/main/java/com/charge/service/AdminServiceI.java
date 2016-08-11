@@ -12,11 +12,11 @@ import com.charge.model.Admin;
 public interface AdminServiceI {
 
     /**根据主键id，获取管理员信息*/
-    Admin getAdminById(Long id);
+    Admin getAdminById(Long id) throws Exception;
 
     /**管理员登录*/
-    Admin loginAdmin(String username, String password);
+    Admin loginAdmin(String username, String password) throws Exception;
 
     /**获取管理员信息的dataGrid*/
-    Datagrid<Admin> dataGrid(int page, int rows);
+    Datagrid<Admin> dataGrid(int page, int rows) throws Exception;
 }

@@ -58,7 +58,7 @@ public class UploadServlet extends HttpServlet {
 		String tempFileName = null;// 临时文件名
 		String newFileName = null;// 最后合并后的新文件名
 		BufferedOutputStream outputStream = null;
-		
+
 		String pathParam = request.getParameter("path");
 
 		String dir = AppConstants.DISK_BASE_DIR_APK;//pic
@@ -125,7 +125,7 @@ public class UploadServlet extends HttpServlet {
 												ftpClient.changeWorkingDirectory(p);
 											}
 										}
-										
+
 									}
 									ftpClient.storeFile(saveName, inputStream);
 									ftpClient.logout();
@@ -145,7 +145,7 @@ public class UploadServlet extends HttpServlet {
 							}
 
 							/*************************jieshu****************************/
-							
+
 							//item.write(savedFile);
 						}
 					}

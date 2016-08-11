@@ -9,5 +9,5 @@ import com.charge.config.vo.Json;
  */
 public interface FeedbackServiceI {
     /**提交意见反馈*/
-    Json feedbackConfirm(String username, String info);
+    Json feedbackConfirm(String username, String info) throws Exception;
 }

@@ -34,7 +34,7 @@ public class ApkVersionServiceImpl implements ApkVersionServiceI {
      * @return
      */
     @Override
-    public Datagrid<ApkVersion> dataGrid(int page, int rows) {
+    public Datagrid<ApkVersion> dataGrid(int page, int rows)  throws Exception{
         Datagrid<ApkVersion> datagrid = new Datagrid<ApkVersion>();
 
         List<ApkVersion> apks= apkVersionMapper.selectAllApk();
@@ -53,7 +53,7 @@ public class ApkVersionServiceImpl implements ApkVersionServiceI {
      * @return
      */
     @Override
-    public Json addApk(ApkVersion apkVersion) {
+    public Json addApk(ApkVersion apkVersion)  throws Exception{
         Json json = new Json();
 
         ApkVersion lastApk = apkVersionMapper.selectLastVersion();
@@ -71,7 +71,7 @@ public class ApkVersionServiceImpl implements ApkVersionServiceI {
      * @return
      */
     @Override
-    public Json getLastApkVersion() {
+    public Json getLastApkVersion()  throws Exception{
         Json json = new Json();
 
         ApkVersion lastApk = apkVersionMapper.selectLastVersion();
@@ -95,7 +95,7 @@ public class ApkVersionServiceImpl implements ApkVersionServiceI {
      * @return
      */
     @Override
-    public Json checkApkVersion(Integer versionNo) {
+    public Json checkApkVersion(Integer versionNo)  throws Exception{
         Json json = new Json();
         ApkVersion lastApk = apkVersionMapper.selectLastVersion();
 
@@ -109,7 +109,7 @@ public class ApkVersionServiceImpl implements ApkVersionServiceI {
 
         if (versionNo >= lastApk.getVersionNo()){
             json.setSuccess(false);
-            json.setResult_code(ReturnMsg.APK_VERSION_NO_EXIST);
+            json.setResult_code(ReturnMsg.APK_VERSION_LASTEST);
             json.setMsg("apk版本已经是最新");
             return json;
         }
@@ -124,7 +124,7 @@ public class ApkVersionServiceImpl implements ApkVersionServiceI {
     /**
      * 初始化apkVersion
      */
-    private void initApkVersion() {
+    private void initApkVersion() throws Exception{
         ApkVersion apkVersion = new ApkVersion();
         apkVersion.setDescription("初始版本");
         apkVersion.setUrl(AppConstants.APK_DOWNLOAD_ADDRESS);

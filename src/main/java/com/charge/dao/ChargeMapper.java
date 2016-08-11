@@ -29,4 +29,7 @@ public interface ChargeMapper {
     int updateByPrimaryKeySelective(Charge record);
 
     int updateByPrimaryKey(Charge record);
+
+    /**根据编码，获取充电桩信息*/
+    Charge selectByChargeNo(@Param("chargeNo")String chargeNo);
 }

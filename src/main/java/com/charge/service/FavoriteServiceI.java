@@ -1,0 +1,18 @@
+package com.charge.service;
+
+import com.charge.config.vo.Json;
+
+/**
+ * 用户收藏充电桩---接口
+ * @author liumw
+ * @date 2016/8/11 0011
+ */
+public interface FavoriteServiceI {
+
+    /**用户添加收藏*/
+    Json addFavorite(Long userId, String chargeNo) throws Exception;
+    /**用户取消收藏*/
+    Json removeFavorite(Long userId, Long id) throws Exception;
+    /** 获取该用户的收藏列表*/
+    Json findFavorite(Long userId) throws Exception;
+}

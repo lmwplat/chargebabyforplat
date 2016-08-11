@@ -25,13 +25,13 @@
 	$(function() {
 		grid = $('#grid').datagrid({
 			title : '',
-			url : '${contextPath}/admin/apkVersionAdmin/dataGrid',
+			url : '${pageContext.request.contextPath}/admin/apkVersionAdmin/dataGrid',
 			striped : true,
 			rownumbers : true,
 			pagination : true,
 			singleSelect : true,
 			idField : 'id',
-			sortName : 'createDatetime',
+			sortName : 'id',
 			sortOrder : 'desc',
 			pageSize : 50,
 			pageList : [ 10, 20, 30, 40, 50, 100, 200, 300, 400, 500 ],

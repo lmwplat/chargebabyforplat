@@ -26,7 +26,7 @@ public class FeedbackServiceImpl implements FeedbackServiceI {
      * @return
      */
     @Override
-    public Json feedbackConfirm(String username, String info) {
+    public Json feedbackConfirm(String username, String info)  throws Exception{
         Json json = new Json();
         Feedback feedback = new Feedback();
         if (username != null){

@@ -27,7 +27,7 @@ public class AdminServiceImpl implements AdminServiceI {
      * @return
      */
     @Override
-    public Admin getAdminById(Long id) {
+    public Admin getAdminById(Long id) throws Exception {
         return adminMapper.selectByPrimaryKey(id);
     }
 
@@ -38,7 +38,7 @@ public class AdminServiceImpl implements AdminServiceI {
      * @return
      */
     @Override
-    public Admin loginAdmin(String username, String password) {
+    public Admin loginAdmin(String username, String password)  throws Exception{
         return adminMapper.selectByUsernamePass(username, password);
     }
 
@@ -49,7 +49,7 @@ public class AdminServiceImpl implements AdminServiceI {
      * @return
      */
     @Override
-    public Datagrid<Admin> dataGrid(int page, int rows) {
+    public Datagrid<Admin> dataGrid(int page, int rows)  throws Exception{
         Datagrid<Admin> datagrid = new Datagrid<Admin>();
 
         List<Admin> admins = adminMapper.selectAllAdmin();

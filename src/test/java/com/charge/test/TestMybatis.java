@@ -1,6 +1,9 @@
 package com.charge.test;
 
+import com.charge.config.vo.Json;
 import com.charge.model.User;
+import com.charge.service.FavoriteServiceI;
+import com.charge.service.FeedbackServiceI;
 import com.charge.service.UserServiceI;
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -19,6 +22,8 @@ public class TestMybatis {
 	private static final Logger logger = Logger.getLogger(TestMybatis.class);
 
 	private UserServiceI userService;
+	@Autowired
+	private FavoriteServiceI favoriteService;
 
 	public UserServiceI getUserService() {
 		return userService;
@@ -29,7 +34,7 @@ public class TestMybatis {
 		this.userService = userService;
 	}
 
-	@Test
+	/*@Test
 	public void test1() {
 		User u = userService.getUserById(1l);
 		logger.info(JSON.toJSONStringWithDateFormat(u, "yyyy-MM-dd HH:mm:ss"));
@@ -39,7 +44,7 @@ public class TestMybatis {
 	public void testLogin() {
 		User user = userService.login("lmw", "123456");
 		logger.info(JSON.toJSONStringWithDateFormat(user, "yyyy-MM-dd HH:mm:ss"));
-	}
+	}*/
 
 	/*@Test
 	public void testGetUserByName() {
@@ -52,4 +57,16 @@ public class TestMybatis {
 		List<User> l = userService.getAll3();
 		logger.info(JSON.toJSONStringWithDateFormat(l, "yyyy-MM-dd HH:mm:ss"));
 	}*/
+
+/*	@Test
+	public void findFavorite(){
+		Json json = favoriteService.findFavorite();
+		logger.info(JSON.toJSONStringWithDateFormat(json, "yyyy-MM-dd HH:mm:ss"));
+	}*/
+
+	@Test
+	public void addFavorite() throws Exception {
+		Json json = favoriteService.addFavorite(39L, "15");
+		logger.info(JSON.toJSONStringWithDateFormat(json, "yyyy-MM-dd HH:mm:ss"));
+	}
 }

@@ -3,6 +3,9 @@ package com.charge.controller;
 import com.charge.config.utils.DateUtils;
 import com.charge.config.utils.SpringMVCHolder;
 import com.charge.config.utils.StringEscapeEditor;
+import com.charge.config.vo.Json;
+import com.charge.model.User;
+import com.charge.service.UserServiceI;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +28,14 @@ import java.util.Date;
  * @author liumw
  * @date 2016/8/2 0002
  */
-public class BaseController {
+public abstract class BaseController {
     /**
      * 日志对象
      */
     protected Logger logger = Logger.getLogger(getClass());
 
+    @Autowired
+    private UserServiceI userService;
 
 
     protected BaseController() {
@@ -45,11 +50,8 @@ public class BaseController {
 
     protected String ids;// 主键集合，逗号分割
 
-    @Autowired
     protected HttpServletRequest request;
-    @Autowired
     protected HttpServletResponse response;
-    @Autowired
     protected HttpSession session;
 
     @ModelAttribute
@@ -156,6 +158,38 @@ public class BaseController {
 
     }
 
+    /**
+     * 判断参数是否为NULL
+     *
+     * @param params
+     * @return
+     */
+    protected boolean isNull(String... params) {
+        if (params == null || params.length == 0) {
+            return true;
+        }
+        for (String obj : params) {
+            if (obj == null || "".equals(obj)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 根据id，判断用户是否存在
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    protected Boolean checkUserById(Long id) throws Exception {
+        User user = userService.getUserById(id);
+        if (user == null){
+            return false;
+        }else {
+            return true;
+        }
+    }
 
 
     /**

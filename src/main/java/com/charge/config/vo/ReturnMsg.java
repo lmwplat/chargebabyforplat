@@ -22,10 +22,19 @@ public class ReturnMsg {
     public static final String USERNAME_NO_EXIST = "1002";
     /**用户名密码错误*/
     public static final String USERNAME_PASS_ERROR = "1003";
+    /**用户不存在*/
+    public static final String USER_NO_EXIST = "1004";
 
 
     /**apk版本信息不存在*/
     public static final String APK_VERSION_NO_EXIST = "1101";
     /**apk版本已经是最新*/
     public static final String APK_VERSION_LASTEST = "1102";
+
+
+    /**充电桩不存在*/
+    public static final String CHARGE_NO_EXIST = "1201";
+
+    /**该收藏已经存在*/
+    public static final String FAVORITE_EXIST = "1301";
 }

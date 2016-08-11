@@ -35,7 +35,7 @@ public class AdminController extends BaseController {
         Admin admin = new Admin();
         model.addAttribute("admin", admin);
         //  System.out.println("query user list from db");
-        return "/user/userAdd";
+        return "user/userAdd";
     }
 
     /*
@@ -47,7 +47,7 @@ public class AdminController extends BaseController {
 
         Admin admin = adminService.getAdminById(id);
         uiModel.addAttribute("admin", admin);
-        return "/user/userEdit" ;
+        return "user/userEdit" ;
     }
 
     /*
@@ -58,7 +58,7 @@ public class AdminController extends BaseController {
     public String toUserFormAdmin(@PathVariable Long id, Model uiModel )	throws Exception{
         Admin admin = adminService.getAdminById(id);
         uiModel.addAttribute("admin", admin);
-        return "/user/userShow" ;
+        return "user/userShow" ;
     }
 
     /**

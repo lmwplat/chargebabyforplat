@@ -445,4 +445,12 @@
       CHARGE_NO = #{chargeNo,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=BIGINT}
   </update>
+
+  <!--根据编码，获取充电桩信息-->
+  <select id="selectByChargeNo" resultMap="BaseResultMap"  >
+    select
+    *
+    from sys_charge
+    where CHARGE_NO = #{chargeNo}
+  </select>
 </mapper>

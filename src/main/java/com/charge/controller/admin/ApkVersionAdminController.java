@@ -36,7 +36,7 @@ public class ApkVersionAdminController extends BaseController {
      */
     @ResponseBody
     @RequestMapping("/dataGrid")
-    public Datagrid<ApkVersion> getUserGrid(){
+    public Datagrid<ApkVersion> getUserGrid() throws Exception {
         return apkVersionService.dataGrid(page, rows);
     }
 
@@ -46,7 +46,7 @@ public class ApkVersionAdminController extends BaseController {
    */
     @RequestMapping(value="/apkAddPage", method = RequestMethod.GET)
     public String toApkAddPage() throws Exception{
-        return "/apk/apkAdd";
+        return "apk/apkAdd";
     }
 
     /**
