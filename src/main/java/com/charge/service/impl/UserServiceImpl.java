@@ -114,9 +114,9 @@ public class UserServiceImpl implements UserServiceI {
             userMapper.updateByPrimaryKey(user);
             json.setResult_code(ReturnMsg.SUCCESS);
             json.setObj(user);
-            json.setMsg("注册成功");
+            json.setMsg("修改密码成功");
             json.setSuccess(true);
-            logger.info(username + "修改密码");
+            logger.info(username + "修改密码成功");
         }else{
             json.setSuccess(false);
             json.setMsg("用户名不存在");
