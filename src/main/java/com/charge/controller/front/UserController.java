@@ -75,11 +75,8 @@ public class UserController {
     public Json login(@ModelAttribute("user") User user) {
         Json json = new Json();
         try {
-            User u =  userService.login(user.getUsername(), user.getPassword());
-            json.setSuccess(true);
-            json.setMsg("登录成功！");
-            json.setResult_code(ReturnMsg.SUCCESS);
-            json.setObj(u);
+            json =  userService.login(user.getUsername(), user.getPassword());
+
             logger.info(JSON.toJSONString(json));
 
         } catch (Exception e) {

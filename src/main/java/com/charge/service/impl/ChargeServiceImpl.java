@@ -3,6 +3,7 @@ package com.charge.service.impl;
 import com.charge.dao.ChargeMapper;
 import com.charge.model.Charge;
 import com.charge.service.ChargeServiceI;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("chargeService")
 public class ChargeServiceImpl implements ChargeServiceI {
+    private static final Logger logger = Logger.getLogger(ChargeServiceImpl.class);
     @Autowired
     private ChargeMapper chargeMapper;
 

@@ -5,7 +5,6 @@ import com.charge.config.vo.ReturnMsg;
 import com.charge.dao.FavoriteMapper;
 import com.charge.model.Charge;
 import com.charge.model.Favorite;
-import com.charge.model.User;
 import com.charge.service.ChargeServiceI;
 import com.charge.service.FavoriteServiceI;
 import com.charge.service.UserServiceI;
@@ -47,6 +46,7 @@ public class FavoriteServiceImpl implements FavoriteServiceI{
             json.setMsg("该充电桩不存在");
             json.setResult_code(ReturnMsg.CHARGE_NO_EXIST);
             json.setSuccess(false);
+            logger.error(String.valueOf(userId) + "用户添加收藏失败" + "---该充电桩不存在");
             return json;
         }
         //判断是否添加过
@@ -55,6 +55,7 @@ public class FavoriteServiceImpl implements FavoriteServiceI{
             json.setMsg("已经添加过该收藏");
             json.setResult_code(ReturnMsg.FAVORITE_EXIST);
             json.setSuccess(false);
+            logger.error(String.valueOf(userId) + "用户添加收藏失败" + "---已经添加过该收藏");
             return json;
         }
 
@@ -67,11 +68,12 @@ public class FavoriteServiceImpl implements FavoriteServiceI{
         favorite.setUserId(userId);
         favoriteMapper.insert(favorite);
 
+        List<Favorite> favoriteList = findFavorite(userId);
         json.setResult_code(ReturnMsg.SUCCESS);
         json.setSuccess(true);
         json.setMsg("成功");
-        json.setObj(favorite);
-
+        json.setObj(favoriteList);
+        logger.info(String.valueOf(userId) + "用户添加收藏成功");
         return json;
     }
 
@@ -91,15 +93,18 @@ public class FavoriteServiceImpl implements FavoriteServiceI{
             json.setMsg("该收藏不存在");
             json.setResult_code(ReturnMsg.CHARGE_NO_EXIST);
             json.setSuccess(false);
+            logger.error(String.valueOf(userId) + "用户取消收藏失败" + "---该收藏不存在");
             return json;
         }
 
         favoriteMapper.deleteByPrimaryKey(id);
 
+        List<Favorite> favoriteList = findFavorite(userId);
         json.setResult_code(ReturnMsg.SUCCESS);
         json.setSuccess(true);
         json.setMsg("成功");
-
+        json.setObj(favoriteList);
+        logger.info(String.valueOf(userId) + "用户取消收藏成功");
         return json;
     }
 
@@ -109,16 +114,8 @@ public class FavoriteServiceImpl implements FavoriteServiceI{
      * @return
      */
     @Override
-    public Json findFavorite(Long userId) throws Exception {
-        Json json = new Json();
+    public List<Favorite> findFavorite(Long userId) throws Exception {
 
-        //判断userID，chargeNo 是否合法
-        List<Favorite> favorites = favoriteMapper.findFavoriteByUserId(userId);
-
-        json.setResult_code(ReturnMsg.SUCCESS);
-        json.setSuccess(true);
-        json.setMsg("成功");
-        json.setObj(favorites);
-        return json;
+        return favoriteMapper.findFavoriteByUserId(userId);
     }
 }

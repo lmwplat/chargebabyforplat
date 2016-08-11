@@ -16,7 +16,7 @@ public interface UserServiceI {
     Json reg(String username, String password) throws Exception;
 
     /**用户登录*/
-    User login(String username, String password) throws Exception;
+    Json login(String username, String password) throws Exception;
 
     /**忘记密码，修改密码*/
     Json confirm(String username, String password) throws Exception;

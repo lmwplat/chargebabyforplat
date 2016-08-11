@@ -1,16 +1,14 @@
 package com.charge.service.impl;
 
 import com.charge.config.state.AppConstants;
-import com.charge.config.utils.ConfigUtils;
 import com.charge.config.vo.Datagrid;
 import com.charge.config.vo.Json;
 import com.charge.config.vo.ReturnMsg;
 import com.charge.dao.ApkVersionMapper;
-import com.charge.model.Admin;
-import com.charge.model.AdminExample;
 import com.charge.model.ApkVersion;
 import com.charge.model.ApkVersionExample;
 import com.charge.service.ApkVersionServiceI;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +22,7 @@ import java.util.List;
  */
 @Service("apkVersionService")
 public class ApkVersionServiceImpl implements ApkVersionServiceI {
+    private static final Logger logger = Logger.getLogger(ApkVersionServiceImpl.class);
     @Autowired
     private ApkVersionMapper apkVersionMapper;
 

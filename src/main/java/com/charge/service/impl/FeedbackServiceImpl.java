@@ -5,6 +5,7 @@ import com.charge.config.vo.ReturnMsg;
 import com.charge.dao.FeedbackMapper;
 import com.charge.model.Feedback;
 import com.charge.service.FeedbackServiceI;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("feedbackServiceI")
 public class FeedbackServiceImpl implements FeedbackServiceI {
+    private static final Logger logger = Logger.getLogger(FeedbackServiceImpl.class);
     @Autowired
     private FeedbackMapper feedbackMapper;
 

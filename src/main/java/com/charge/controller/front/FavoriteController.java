@@ -5,9 +5,7 @@ import com.charge.config.vo.Json;
 import com.charge.config.vo.ReturnMsg;
 import com.charge.controller.BaseController;
 import com.charge.model.Favorite;
-import com.charge.model.User;
 import com.charge.service.FavoriteServiceI;
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * 用户收藏充电桩
@@ -31,8 +31,8 @@ public class FavoriteController  extends BaseController {
 
     /**
      * 用户添加收藏
-     * @param userId 用户id
-     * @param chargeNo 充电桩编码
+     * *@param userId 用户id
+     * *@param chargeNo 充电桩编码
      */
     @ResponseBody
     @RequestMapping(value = "/addFavorite", method = RequestMethod.POST)
@@ -76,8 +76,8 @@ public class FavoriteController  extends BaseController {
 
     /**
      * 用户取消收藏
-     * @param userId 用户id
-     * @param id 收藏id
+     * *@param userId 用户id
+     * *@param id 收藏id
      */
     @ResponseBody
     @RequestMapping(value = "/removeFavorite", method = RequestMethod.POST)
@@ -109,7 +109,7 @@ public class FavoriteController  extends BaseController {
 
     /**
      * 获取该用户的收藏列表
-     * @param userId 用户id
+     * *@param userId 用户id
      */
     @ResponseBody
     @RequestMapping(value = "/findFavorite", method = RequestMethod.POST)
@@ -124,7 +124,11 @@ public class FavoriteController  extends BaseController {
 
 
         try {
-            json =  favoriteServiceI.findFavorite(favorite.getUserId());
+            List<Favorite>  favorites =  favoriteServiceI.findFavorite(favorite.getUserId());
+            json.setResult_code(ReturnMsg.SUCCESS);
+            json.setSuccess(true);
+            json.setMsg("成功");
+            json.setObj(favorites);
             logger.info(JSON.toJSONString(json));
             return json;
         } catch (Exception e) {

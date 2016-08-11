@@ -2,11 +2,17 @@ package com.charge.service.impl;
 
 import com.charge.config.vo.Json;
 import com.charge.config.vo.ReturnMsg;
+import com.charge.config.vo.UserInfo;
 import com.charge.dao.UserMapper;
+import com.charge.model.Favorite;
 import com.charge.model.User;
+import com.charge.service.FavoriteServiceI;
 import com.charge.service.UserServiceI;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 用户处理service 实现
@@ -15,9 +21,12 @@ import org.springframework.stereotype.Service;
  */
 @Service("userService")
 public class UserServiceImpl implements UserServiceI {
+    private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private FavoriteServiceI favoriteService;
 
     @Override
     public User getUserById(Long id)  throws Exception{
@@ -40,14 +49,17 @@ public class UserServiceImpl implements UserServiceI {
        // User user = new User();
         User user = userMapper.selectByUsername(username);
         if (user == null){
+            UserInfo userInfo = new UserInfo();
             User u = new User();
             u.setUsername(username);
             u.setPassword(password);
             userMapper.insert(u);
+            userInfo.setUser(u);
             json.setResult_code(ReturnMsg.SUCCESS);
-            json.setObj(u);
+            json.setObj(userInfo);
             json.setMsg("注册成功");
             json.setSuccess(true);
+            logger.info(username + "进行用户注册");
         }else{
             json.setSuccess(false);
             json.setMsg("用户名已存在");
@@ -65,10 +77,25 @@ public class UserServiceImpl implements UserServiceI {
      * @return
      */
     @Override
-    public User login(String username, String password)  throws Exception{
+    public Json login(String username, String password)  throws Exception{
+        Json json = new Json();
+        User u = userMapper.selectByUsernamePass(username, password);
+        if (u == null){
+            json.setSuccess(false);
+            json.setMsg("用户名密码错误");
+            json.setResult_code(ReturnMsg.USERNAME_PASS_ERROR);
+            return json;
+        }
+        UserInfo userInfo = new UserInfo();
+        List<Favorite> favoriteList = favoriteService.findFavorite(u.getId());
+        userInfo.setUser(u);
+        userInfo.setFavoriteList(favoriteList);
 
-
-        return userMapper.selectByUsernamePass(username, password);
+        json.setSuccess(true);
+        json.setMsg("登录成功！");
+        json.setResult_code(ReturnMsg.SUCCESS);
+        json.setObj(userInfo);
+        return json;
     }
 
     /**
@@ -89,15 +116,13 @@ public class UserServiceImpl implements UserServiceI {
             json.setObj(user);
             json.setMsg("注册成功");
             json.setSuccess(true);
+            logger.info(username + "修改密码");
         }else{
             json.setSuccess(false);
             json.setMsg("用户名不存在");
             json.setResult_code(ReturnMsg.USERNAME_NO_EXIST);
+            logger.error(username + "修改密码失败" + "---用户名不存在");
         }
-
-
         return  json;
     }
-
-
 }

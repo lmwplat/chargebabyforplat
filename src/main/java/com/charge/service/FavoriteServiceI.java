@@ -1,6 +1,9 @@
 package com.charge.service;
 
 import com.charge.config.vo.Json;
+import com.charge.model.Favorite;
+
+import java.util.List;
 
 /**
  * 用户收藏充电桩---接口
@@ -14,5 +17,5 @@ public interface FavoriteServiceI {
     /**用户取消收藏*/
     Json removeFavorite(Long userId, Long id) throws Exception;
     /** 获取该用户的收藏列表*/
-    Json findFavorite(Long userId) throws Exception;
+    List<Favorite> findFavorite(Long userId) throws Exception;
 }
