@@ -1,5 +1,6 @@
 package com.charge.service.impl;
 
+import com.charge.config.utils.BeanUtils;
 import com.charge.config.vo.Json;
 import com.charge.config.vo.ReturnMsg;
 import com.charge.config.vo.UserInfo;
@@ -54,7 +55,7 @@ public class UserServiceImpl implements UserServiceI {
             u.setUsername(username);
             u.setPassword(password);
             userMapper.insert(u);
-            userInfo.setUser(u);
+            BeanUtils.copyNotNullProperties(u, userInfo);
             json.setResult_code(ReturnMsg.SUCCESS);
             json.setObj(userInfo);
             json.setMsg("注册成功");
@@ -88,7 +89,7 @@ public class UserServiceImpl implements UserServiceI {
         }
         UserInfo userInfo = new UserInfo();
         List<Favorite> favoriteList = favoriteService.findFavorite(u.getId());
-        userInfo.setUser(u);
+        BeanUtils.copyNotNullProperties(u, userInfo);
         userInfo.setFavoriteList(favoriteList);
 
         json.setSuccess(true);
