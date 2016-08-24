@@ -9,40 +9,17 @@
 <jsp:include page="/common/inc.jsp"></jsp:include>
 <script type="text/javascript">
 	var grid;
-	var addFun = function() {
-		var dialog = parent.sy.modalDialog({
-			title : '添加用户信息',
-			url : '${pageContext.request.contextPath}/admin/userAdmin/userAddPage',
-			buttons : [ {
-				text : '添加',
-				handler : function() {
-					dialog.find('iframe').get(0).contentWindow.submitForm(dialog, grid, parent.$);
-				}
-			} ]
-		});
-	};
+
 	var showFun = function(id) {
 		var dialog = parent.sy.modalDialog({
 			title : '查看用户信息',
-			url : '${pageContext.request.contextPath}/admin/userAdmin/userShowPage/' + id
-		});
-	};
-	var editFun = function(id) {
-		var dialog = parent.sy.modalDialog({
-			title : '编辑用户信息',
-			url : '${pageContext.request.contextPath}/admin/userAdmin/userEditPage/ ' + id,
-			buttons : [ {
-				text : '编辑',
-				handler : function() {
-					dialog.find('iframe').get(0).contentWindow.submitForm(dialog, grid, parent.$);
-				}
-			} ]
+			url : '${pageContext.request.contextPath}/admin/admin/adminShowPage/' + id
 		});
 	};
 	var removeFun = function(id) {
 		parent.$.messager.confirm('询问', '您确定要删除此记录？', function(r) {
 			if (r) {
-				$.post('${pageContext.request.contextPath}/admin/userAdmin/delete/', {
+				$.post('${pageContext.request.contextPath}/admin/admin/delete/', {
 					id : id
 				}, function() {
 					grid.datagrid('reload');
@@ -50,18 +27,7 @@
 			}
 		});
 	};
-	var grantRoleFun = function(id) {
-		var dialog = parent.sy.modalDialog({
-			title : '修改角色',
-			url : '${pageContext.request.contextPath}/admin/userAdmin/userRoleGrantPage/' + id,
-			buttons : [ {
-				text : '修改',
-				handler : function() {
-					dialog.find('iframe').get(0).contentWindow.submitForm(dialog, grid, parent.$);
-				}
-			} ]
-		});
-	};
+
 	$(function() {
 		grid = $('#grid').datagrid({
 			title : '',
@@ -71,13 +37,13 @@
 			pagination : true,
 			singleSelect : true,
 			idField : 'id',
-			sortName : 'createDatetime',
+			sortName : 'id',
 			sortOrder : 'desc',
-			pageSize : 50,
+			pageSize : 10,
 			pageList : [ 10, 20, 30, 40, 50, 100, 200, 300, 400, 500 ],
 			frozenColumns : [ [ {
 				width : '100',
-				title : '登录名',
+				title : '用户名',
 				field : 'username',
 				sortable : true
 			}, {
@@ -96,7 +62,22 @@
 				title : '修改时间',
 				field : 'updateTime',
 				sortable : true
-			}, {
+			},  {
+				width : '150',
+				title : '手机',
+				field : 'phone',
+				sortable : true
+			},  {
+				width : '150',
+				title : 'email',
+				field : 'email',
+				sortable : true
+			},  {
+				width : '150',
+				title : '头像',
+				field : 'headUrl',
+				sortable : true
+			},{
 				width : '150',
 				title : '是否锁定',
 				field : 'isLock',
@@ -107,18 +88,8 @@
 				width : '90',
 				formatter : function(value, row) {
 					var str = '';
-					<% {%>
-					str += sy.formatString('<img class="iconImg ext-icon-note" title="查看" onclick="showFun(\'{0}\');"/>', row.id);
-					<%}%>
-					<% {%>
-					str += sy.formatString('<img class="iconImg ext-icon-note_edit" title="编辑" onclick="editFun(\'{0}\');"/>', row.id);
-					<%}%>
-					<% {%>
-					str += sy.formatString('<img class="iconImg ext-icon-user" title="用户角色" onclick="grantRoleFun(\'{0}\');"/>', row.id);
-					<%}%>
-					<% {%>
-					str += sy.formatString('<img class="iconImg ext-icon-note_delete" title="删除" onclick="removeFun(\'{0}\');"/>', row.id);
-					<%}%>
+
+
 					return str;
 				}
 			} ] ],

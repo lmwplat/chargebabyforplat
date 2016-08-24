@@ -6,7 +6,7 @@ import com.charge.config.vo.Json;
 import com.charge.config.vo.ReturnMsg;
 import com.charge.controller.BaseController;
 import com.charge.model.ApkVersion;
-import com.charge.service.ApkVersionServiceI;
+import com.charge.service.front.ApkVersionServiceI;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

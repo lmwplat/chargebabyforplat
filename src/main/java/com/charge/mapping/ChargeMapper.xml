@@ -453,4 +453,12 @@
     from sys_charge
     where CHARGE_NO = #{chargeNo}
   </select>
+
+  <!--获取所有充电桩信息-->
+  <select id="selectAllCharge" resultMap="BaseResultMap"  >
+    select
+    *
+    from sys_charge
+  </select>
+
 </mapper>

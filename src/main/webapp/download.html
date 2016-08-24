@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>下载桩宝宝</title>
+    <meta charset="utf-8">
+    <meta name="title" content="桩宝宝">
+    <meta name="description" content="“桩宝宝”是由广州市节能协会为广大电动汽车用户量身定制的充电桩信息平台，提供最佳的充电和用车服务体验。">
+    <meta name="Keywords" content="节能，充电，广州，电动，汽车">
+    <link type="image/x-icon" href="http://localhost:8070/pic/favicon.png" rel="shortcut icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <link type="text/css" rel="stylesheet" href="http://localhost:8070/wap.css">
+</head>
+
+<body>
+<div class="container clearfix">
+    <div class="top clearfix">
+        <header class="clearfix">
+        </header>
+        <section class="main">
+            <hgroup>
+                <h2 class="img-sprite title"></h2>
+            </hgroup>
+        </section>
+        <img src="http://localhost:8070/pic/ic_chargebaby144.png" alt="" class="icon">
+    </div>
+    <section class="tips">
+        <ul>
+            <li>
+                <p><i class="ico-dot"></i>“桩宝宝”是由广州市节能协会为广大电动汽车用户量身定制的充电桩信息平台，提供最佳的充电和用车服务体验。</p>
+            </li>
+
+        </ul>
+        <a onclick="download_meiyou();return false;" title="下载桩宝宝" href="javascript:;" class="img-sprite" id="download-btn"></a>
+    </section>
+</div>
+</body>
+<script type="text/javascript">
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|#|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null)
+            return encodeURIComponent(decodeURIComponent(unescape(r[2])));
+        return null;
+    }
+
+    var browser = navigator.userAgent.toLowerCase(); //navigator.platform;
+    var ios = browser.indexOf("iphone") > -1 || browser.indexOf("ipad") > -1 || browser.indexOf("ipod") > -1 || browser.indexOf("itouch") > -1 || browser.indexOf("ios") > -1 || browser.indexOf("mac") > -1; //ios终端
+    var android = browser.indexOf("android") > -1 || browser.indexOf("linux") > -1; //android终端
+    var weixin = browser.indexOf('micromessenger') > -1; //微信浏览器
+    var other = browser.indexOf('mqqbrowser') > -1 || browser.indexOf('ucweb') > -1; //其它浏览器
+    var wp = browser.indexOf('windows phone') > -1;
+
+    function download_meiyou() {
+        var downloadURL = "";
+
+        if (ios) {
+            if (weixin)
+                downloadURL = "http://120.76.194.88:8070/apk/chargebaby.apk";
+            else
+                downloadURL = "http://120.76.194.88:8070/apk/chargebaby.apk";
+        } else if (android || other) {
+            if (weixin)
+                downloadURL = "http://120.76.194.88:8070/apk/chargebaby.apk";
+            else
+                downloadURL = "http://120.76.194.88:8070/apk/chargebaby.apk";
+        } else if (wp) {
+            downloadURL = "http://120.76.194.88:8070/apk/chargebaby.apk";
+        } else {
+            downloadURL = "http://120.76.194.88:8070/apk/chargebaby.apk";
+        }
+        window.location.href = downloadURL;
+    }
+
+    window.onload = function() {
+        var url = getUrlParam('url');
+        setTimeout(function() {
+            if (url) {
+                url = decodeURIComponent(url);
+            }
+            setTimeout(function() {
+                if (ios) {
+                    window.location = url;
+                } else if (android) {
+                    var b = document.createElement("iframe");
+                    b.src = url;
+                    b.style.display = "none";
+                    window.setTimeout(function() {
+                        document.body.appendChild(b);
+                    }, 10);
+                    window.setTimeout(function() {
+                        document.body.removeChild(b);
+                    }, 3000);
+                }
+            }, 0);
+        }, 0);
+    }
+</script>
+
+</html>

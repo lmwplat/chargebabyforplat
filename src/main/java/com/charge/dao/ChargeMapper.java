@@ -32,4 +32,7 @@ public interface ChargeMapper {
 
     /**根据编码，获取充电桩信息*/
     Charge selectByChargeNo(@Param("chargeNo")String chargeNo);
+
+    /**获取电桩列表*/
+    List<Charge> selectAllCharge();
 }

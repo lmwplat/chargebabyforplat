@@ -72,6 +72,7 @@
     <commons.lang3.version>3.4</commons.lang3.version>
     <google.guava.version>r05</google.guava.version>
     <commons-net.version>3.5</commons-net.version>
+    <pagehelper.version>4.1.6</pagehelper.version>
 
     <java.version>1.8</java.version>
     <project.build.jdk>1.8</project.build.jdk>
@@ -217,6 +218,11 @@
       <groupId>commons-net</groupId>
       <artifactId>commons-net</artifactId>
       <version>${commons-net.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper</artifactId>
+      <version>${pagehelper.version}</version>
     </dependency>
 
   </dependencies>

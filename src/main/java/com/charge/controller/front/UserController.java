@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.charge.config.vo.Json;
 import com.charge.config.vo.ReturnMsg;
 import com.charge.model.User;
-import com.charge.service.UserServiceI;
+import com.charge.service.front.UserServiceI;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

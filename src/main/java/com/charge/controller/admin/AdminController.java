@@ -3,7 +3,7 @@ package com.charge.controller.admin;
 import com.charge.config.vo.Datagrid;
 import com.charge.controller.BaseController;
 import com.charge.model.Admin;
-import com.charge.service.AdminServiceI;
+import com.charge.service.admin.AdminServiceI;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2016/8/2 0002
  */
 @Controller
-@RequestMapping("/admin/userAdmin")
+@RequestMapping("/admin/admin")
 public class AdminController extends BaseController {
     private static final Logger logger = Logger
             .getLogger(AdminController.class);
@@ -30,46 +30,45 @@ public class AdminController extends BaseController {
      * 到达后台管理员“用户系统管理-用户管理-添加用户表单”页面
      *
     */
-    @RequestMapping(value="/userAddPage", method = RequestMethod.GET)
+    @RequestMapping(value="/adminAddPage", method = RequestMethod.GET)
     public String toUserAddAdmin(Model model) throws Exception{
         Admin admin = new Admin();
         model.addAttribute("admin", admin);
         //  System.out.println("query user list from db");
-        return "user/userAdd";
+        return "admin/adminAdd";
     }
 
     /*
      * 到达后台管理员“用户系统管理-用户管理-修改用户表单”页面
      *
     */
-    @RequestMapping(value = "userEditPage/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "adminEditPage/{id}", method = RequestMethod.GET)
     public String toUserEditAdmin(@PathVariable Long id, Model uiModel )	throws Exception{
 
         Admin admin = adminService.getAdminById(id);
         uiModel.addAttribute("admin", admin);
-        return "user/userEdit" ;
+        return "admin/adminEdit";
     }
 
     /*
      * 到达后台管理员“用户系统管理-用户管理-用户表单”页面
      *
     */
-    @RequestMapping(value = "userShowPage/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "adminShowPage/{id}", method = RequestMethod.GET)
     public String toUserFormAdmin(@PathVariable Long id, Model uiModel )	throws Exception{
         Admin admin = adminService.getAdminById(id);
         uiModel.addAttribute("admin", admin);
-        return "user/userShow" ;
+        return "admin/adminShow";
     }
 
     /**
-     * 获取用户数据表格
+     * 获取管理员数据表格
      *
-     * @param user
      * @return
      */
     @RequestMapping("/dataGrid")
     @ResponseBody
-    public Datagrid<Admin> getUserGrid() throws Exception{
+    public Datagrid<Admin> getAdminGrid() throws Exception{
         return adminService.dataGrid(page, rows);
     }
 

@@ -305,4 +305,13 @@
     where USERNAME = #{username}
   </select>
 
+
+  <!--获取所有用户信息-->
+  <select id="selectAllUser" resultMap="BaseResultMap"  >
+    select
+    *
+    from sys_user
+  </select>
+
+
 </mapper>

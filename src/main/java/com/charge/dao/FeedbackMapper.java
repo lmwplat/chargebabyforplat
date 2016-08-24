@@ -29,4 +29,7 @@ public interface FeedbackMapper {
     int updateByPrimaryKeySelective(Feedback record);
 
     int updateByPrimaryKey(Feedback record);
+
+    /**获取所有反馈意见*/
+    List<Feedback> selectAllFeedback();
 }

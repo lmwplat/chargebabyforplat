@@ -178,9 +178,17 @@
 
 		<div id="aa" class="easyui-accordion" fit=true>
 			<div title="系统管理" selected="true" style="padding: 10px;">
-				<a title="<%=contextPath%>/admin/userAdmin" >管理员管理</a> <br/>
-				<a title="<%=contextPath%>/admin/apkVersionAdmin" >APK版本管理</a> <br/>
-			</div>
+			<a title="<%=contextPath%>/admin/admin" >管理员管理</a> <br/>
+			<a title="<%=contextPath%>/admin/apkVersionAdmin" >APK版本管理</a> <br/>
+		</div>
+		<div title="用户管理" selected="true" style="padding: 10px;">
+			<a title="<%=contextPath%>/admin/user" >用户管理</a> <br/>
+		</div>
+		<div title="电桩管理" selected="true" style="padding: 10px;">
+			<a title="<%=contextPath%>/admin/feedback" >反馈意见管理</a> <br/>
+			<a title="<%=contextPath%>/admin/collect" >电桩采集管理</a> <br/>
+			<a title="<%=contextPath%>/admin/charge" >电桩管理</a> <br/>
+		</div>
 
 
 		</div>

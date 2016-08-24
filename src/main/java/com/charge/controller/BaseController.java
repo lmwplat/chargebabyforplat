@@ -3,9 +3,8 @@ package com.charge.controller;
 import com.charge.config.utils.DateUtils;
 import com.charge.config.utils.SpringMVCHolder;
 import com.charge.config.utils.StringEscapeEditor;
-import com.charge.config.vo.Json;
 import com.charge.model.User;
-import com.charge.service.UserServiceI;
+import com.charge.service.front.UserServiceI;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -189,6 +188,13 @@ public abstract class BaseController {
         }else {
             return true;
         }
+    }
+
+    /**
+     * 获取用户
+     */
+    protected User  getUserById(Long id) throws Exception{
+        return userService.getUserById(id);
     }
 
 

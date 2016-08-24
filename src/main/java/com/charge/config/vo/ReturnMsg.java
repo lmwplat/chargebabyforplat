@@ -37,4 +37,7 @@ public class ReturnMsg {
 
     /**该收藏已经存在*/
     public static final String FAVORITE_EXIST = "1301";
+
+    /**该评论不存在*/
+    public static final String COMMENT_EXIST = "1401";
 }

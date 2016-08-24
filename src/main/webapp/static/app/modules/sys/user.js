@@ -1,5 +1,5 @@
-var sessionInfoUserId = sessionInfoUserId;//参考父页面 user.jsp
-var sessionInfoLoginOrganSysCode = sessionInfoLoginOrganSysCode;//参考父页面 user.jsp
+var sessionInfoUserId = sessionInfoUserId;//参考父页面 admin.jsp
+var sessionInfoLoginOrganSysCode = sessionInfoLoginOrganSysCode;//参考父页面 admin.jsp
 /**
  * 判断是否登录用户是不是超级管理员.
  * @returns {Boolean}

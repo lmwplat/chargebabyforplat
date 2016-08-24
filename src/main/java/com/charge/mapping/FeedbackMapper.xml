@@ -193,4 +193,12 @@
       INFO = #{info,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=BIGINT}
   </update>
+
+  <!--获取所有用户信息-->
+  <select id="selectAllFeedback" resultMap="BaseResultMap"  >
+    select
+    *
+    from sys_feedback
+  </select>
+
 </mapper>

@@ -8,7 +8,7 @@ import com.charge.config.vo.ReturnMsg;
 import com.charge.config.vo.SessionSysInfo;
 import com.charge.controller.BaseController;
 import com.charge.model.Admin;
-import com.charge.service.AdminServiceI;
+import com.charge.service.admin.AdminServiceI;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -66,14 +66,7 @@ public class LoginAdminController extends BaseController {
     public String south() throws Exception {
         return "layout/south";
     }
-    /*
-	 * 到达后台管理员“用户系统管理-用户管理”页面
-	 * 菜单权限
-	*/
-    @RequestMapping("/user")
-    public String toUserAdmin()	{
-        return "user/user" ;
-    }
+
 
     /**
      * 管理员登录
@@ -153,17 +146,17 @@ public class LoginAdminController extends BaseController {
     }*/
 
     /**
-     * 跳转到用户管理页面
+     * 到达后台管理员“系统管理管理-管理员管理”页面
      *
      * @return
      */
-    @RequestMapping("/userAdmin")
-    public String userAdmin() {
-        return "user/user";
+    @RequestMapping("/admin")
+    public String admin() {
+        return "admin/admin";
     }
 
     /**
-     * 跳转到用户管理页面
+     * 到达后台管理员“系统管理管理-apk版本管理”页面
      *
      * @return
      */
@@ -171,4 +164,38 @@ public class LoginAdminController extends BaseController {
     public String apkVersionAdmin() {
         return "apk/apkVersion";
     }
+
+    /**
+	 * 到达后台管理员“用户管理-用户管理”页面
+	*/
+    @RequestMapping("/user")
+    public String toUserAdmin()	{
+        return "user/user" ;
+    }
+
+    /**
+     * 到达后台管理员“电桩管理-意见反馈”页面
+     */
+    @RequestMapping("/feedback")
+    public String toFeedbackAdmin()	{
+        return "feedback/feedback" ;
+    }
+
+    /**
+     * 到达后台管理员“电桩管理-电桩采集管理”页面
+     */
+    @RequestMapping("/collect")
+    public String toCollectAdmin()	{
+        return "collect/collect" ;
+    }
+
+    /**
+     * 到达后台管理员“电桩管理-电桩管理”页面
+     */
+    @RequestMapping("/charge")
+    public String toChargeAdmin()	{
+        return "charge/charge" ;
+    }
+
+
 }

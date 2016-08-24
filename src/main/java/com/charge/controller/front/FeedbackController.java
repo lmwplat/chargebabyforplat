@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.charge.config.vo.Json;
 import com.charge.config.vo.ReturnMsg;
 import com.charge.model.Feedback;
-import com.charge.service.FeedbackServiceI;
+import com.charge.service.front.FeedbackServiceI;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,8 +40,9 @@ public class FeedbackController {
             logger.info(JSON.toJSONString(json));
         } catch (Exception e) {
             e.printStackTrace();
-            json.setMsg(e.getMessage());
+            json.setMsg("系统错误");
             json.setResult_code(ReturnMsg.SYS_FAIL);
+            logger.error("意见反馈提交失败" + e.getMessage());
         }
         return json;
     }

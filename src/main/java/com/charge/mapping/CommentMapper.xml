@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.charge.dao.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.charge.model.Comment" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="TYPE" property="type" jdbcType="INTEGER" />
+    <result column="REPLY_NUM" property="replyNum" jdbcType="INTEGER" />
+    <result column="INFO" property="info" jdbcType="VARCHAR" />
+    <result column="AUTHOR" property="author" jdbcType="VARCHAR" />
+    <result column="AUTHOR_ID" property="authorId" jdbcType="BIGINT" />
+    <result column="REPLY" property="reply" jdbcType="VARCHAR" />
+    <result column="REPLY_ID" property="replyId" jdbcType="BIGINT" />
+    <result column="CHARGE_NO" property="chargeNo" jdbcType="VARCHAR" />
+    <result column="FATHER_COMMENT_ID" property="fatherCommentId" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.charge.model.Comment" extends="BaseResultMap" >
+    <result column="CHILD_REPLY_IDS" property="childReplyIds" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, CREATE_TIME, UPDATE_TIME, STATUS, TYPE, REPLY_NUM, INFO, AUTHOR, AUTHOR_ID, REPLY, 
+    REPLY_ID, CHARGE_NO, FATHER_COMMENT_ID
+  </sql>
+  <sql id="Blob_Column_List" >
+    CHILD_REPLY_IDS
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.charge.model.CommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.charge.model.CommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_comment
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_comment
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.charge.model.CommentExample" >
+    delete from sys_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.charge.model.Comment" >
+    insert into sys_comment (ID, CREATE_TIME, UPDATE_TIME, 
+      STATUS, TYPE, REPLY_NUM, 
+      INFO, AUTHOR, AUTHOR_ID, 
+      REPLY, REPLY_ID, CHARGE_NO, 
+      FATHER_COMMENT_ID, CHILD_REPLY_IDS)
+    values (#{id,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{replyNum,jdbcType=INTEGER}, 
+      #{info,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{authorId,jdbcType=BIGINT}, 
+      #{reply,jdbcType=VARCHAR}, #{replyId,jdbcType=BIGINT}, #{chargeNo,jdbcType=VARCHAR}, 
+      #{fatherCommentId,jdbcType=BIGINT}, #{childReplyIds,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.charge.model.Comment" >
+    insert into sys_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="replyNum != null" >
+        REPLY_NUM,
+      </if>
+      <if test="info != null" >
+        INFO,
+      </if>
+      <if test="author != null" >
+        AUTHOR,
+      </if>
+      <if test="authorId != null" >
+        AUTHOR_ID,
+      </if>
+      <if test="reply != null" >
+        REPLY,
+      </if>
+      <if test="replyId != null" >
+        REPLY_ID,
+      </if>
+      <if test="chargeNo != null" >
+        CHARGE_NO,
+      </if>
+      <if test="fatherCommentId != null" >
+        FATHER_COMMENT_ID,
+      </if>
+      <if test="childReplyIds != null" >
+        CHILD_REPLY_IDS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="replyNum != null" >
+        #{replyNum,jdbcType=INTEGER},
+      </if>
+      <if test="info != null" >
+        #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="authorId != null" >
+        #{authorId,jdbcType=BIGINT},
+      </if>
+      <if test="reply != null" >
+        #{reply,jdbcType=VARCHAR},
+      </if>
+      <if test="replyId != null" >
+        #{replyId,jdbcType=BIGINT},
+      </if>
+      <if test="chargeNo != null" >
+        #{chargeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherCommentId != null" >
+        #{fatherCommentId,jdbcType=BIGINT},
+      </if>
+      <if test="childReplyIds != null" >
+        #{childReplyIds,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.charge.model.CommentExample" resultType="java.lang.Integer" >
+    select count(*) from sys_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_comment
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        TYPE = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.replyNum != null" >
+        REPLY_NUM = #{record.replyNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.info != null" >
+        INFO = #{record.info,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null" >
+        AUTHOR = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authorId != null" >
+        AUTHOR_ID = #{record.authorId,jdbcType=BIGINT},
+      </if>
+      <if test="record.reply != null" >
+        REPLY = #{record.reply,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyId != null" >
+        REPLY_ID = #{record.replyId,jdbcType=BIGINT},
+      </if>
+      <if test="record.chargeNo != null" >
+        CHARGE_NO = #{record.chargeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fatherCommentId != null" >
+        FATHER_COMMENT_ID = #{record.fatherCommentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.childReplyIds != null" >
+        CHILD_REPLY_IDS = #{record.childReplyIds,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update sys_comment
+    set ID = #{record.id,jdbcType=BIGINT},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      STATUS = #{record.status,jdbcType=INTEGER},
+      TYPE = #{record.type,jdbcType=INTEGER},
+      REPLY_NUM = #{record.replyNum,jdbcType=INTEGER},
+      INFO = #{record.info,jdbcType=VARCHAR},
+      AUTHOR = #{record.author,jdbcType=VARCHAR},
+      AUTHOR_ID = #{record.authorId,jdbcType=BIGINT},
+      REPLY = #{record.reply,jdbcType=VARCHAR},
+      REPLY_ID = #{record.replyId,jdbcType=BIGINT},
+      CHARGE_NO = #{record.chargeNo,jdbcType=VARCHAR},
+      FATHER_COMMENT_ID = #{record.fatherCommentId,jdbcType=BIGINT},
+      CHILD_REPLY_IDS = #{record.childReplyIds,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_comment
+    set ID = #{record.id,jdbcType=BIGINT},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      STATUS = #{record.status,jdbcType=INTEGER},
+      TYPE = #{record.type,jdbcType=INTEGER},
+      REPLY_NUM = #{record.replyNum,jdbcType=INTEGER},
+      INFO = #{record.info,jdbcType=VARCHAR},
+      AUTHOR = #{record.author,jdbcType=VARCHAR},
+      AUTHOR_ID = #{record.authorId,jdbcType=BIGINT},
+      REPLY = #{record.reply,jdbcType=VARCHAR},
+      REPLY_ID = #{record.replyId,jdbcType=BIGINT},
+      CHARGE_NO = #{record.chargeNo,jdbcType=VARCHAR},
+      FATHER_COMMENT_ID = #{record.fatherCommentId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.charge.model.Comment" >
+    update sys_comment
+    <set >
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="replyNum != null" >
+        REPLY_NUM = #{replyNum,jdbcType=INTEGER},
+      </if>
+      <if test="info != null" >
+        INFO = #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        AUTHOR = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="authorId != null" >
+        AUTHOR_ID = #{authorId,jdbcType=BIGINT},
+      </if>
+      <if test="reply != null" >
+        REPLY = #{reply,jdbcType=VARCHAR},
+      </if>
+      <if test="replyId != null" >
+        REPLY_ID = #{replyId,jdbcType=BIGINT},
+      </if>
+      <if test="chargeNo != null" >
+        CHARGE_NO = #{chargeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherCommentId != null" >
+        FATHER_COMMENT_ID = #{fatherCommentId,jdbcType=BIGINT},
+      </if>
+      <if test="childReplyIds != null" >
+        CHILD_REPLY_IDS = #{childReplyIds,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.charge.model.Comment" >
+    update sys_comment
+    set CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=INTEGER},
+      TYPE = #{type,jdbcType=INTEGER},
+      REPLY_NUM = #{replyNum,jdbcType=INTEGER},
+      INFO = #{info,jdbcType=VARCHAR},
+      AUTHOR = #{author,jdbcType=VARCHAR},
+      AUTHOR_ID = #{authorId,jdbcType=BIGINT},
+      REPLY = #{reply,jdbcType=VARCHAR},
+      REPLY_ID = #{replyId,jdbcType=BIGINT},
+      CHARGE_NO = #{chargeNo,jdbcType=VARCHAR},
+      FATHER_COMMENT_ID = #{fatherCommentId,jdbcType=BIGINT},
+      CHILD_REPLY_IDS = #{childReplyIds,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.charge.model.Comment" >
+    update sys_comment
+    set CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=INTEGER},
+      TYPE = #{type,jdbcType=INTEGER},
+      REPLY_NUM = #{replyNum,jdbcType=INTEGER},
+      INFO = #{info,jdbcType=VARCHAR},
+      AUTHOR = #{author,jdbcType=VARCHAR},
+      AUTHOR_ID = #{authorId,jdbcType=BIGINT},
+      REPLY = #{reply,jdbcType=VARCHAR},
+      REPLY_ID = #{replyId,jdbcType=BIGINT},
+      CHARGE_NO = #{chargeNo,jdbcType=VARCHAR},
+      FATHER_COMMENT_ID = #{fatherCommentId,jdbcType=BIGINT}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!--根据电桩编码，获取所有评论列表-->
+  <select id="findAllCommentByChargeNo" resultMap="BaseResultMap"  >
+    select
+    *
+    from sys_comment
+    where CHARGE_NO = #{chargeNo} AND TYPE =0 AND 1=1
+  </select>
+
+  <!--根据评论id，获取所有回复-->
+  <select id="findAllReplyByCommentId" resultMap="BaseResultMap"  >
+    select
+    *
+    from sys_comment
+    where FATHER_COMMENT_ID = #{fatherCommentId} AND TYPE =1 AND 1=1
+  </select>
+
+  <!--根据评论id和电桩编码，获取评论-->
+  <select id="selectByIdAndChargeNo" resultMap="BaseResultMap"  >
+    select
+    *
+    from sys_comment
+    where FATHER_COMMENT_ID = #{fatherCommentId} AND CHARGE_NO = #{chargeNo}
+    AND TYPE =1 AND 1=1 ORDER by ID DESC
+  </select>
+</mapper>

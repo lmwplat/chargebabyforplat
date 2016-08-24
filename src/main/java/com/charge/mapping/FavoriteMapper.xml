@@ -257,7 +257,7 @@
   </update>
 
   <!--根据用户名，获取收藏列表-->
-  <select id="selectByUsername" resultMap="BaseResultMap"  >
+  <select id="findFavoriteByUserId" resultMap="BaseResultMap"  >
     select
     *
     from sys_favorite

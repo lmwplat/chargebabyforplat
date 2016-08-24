@@ -5,7 +5,7 @@ import com.charge.config.vo.Json;
 import com.charge.config.vo.ReturnMsg;
 import com.charge.controller.BaseController;
 import com.charge.model.Favorite;
-import com.charge.service.FavoriteServiceI;
+import com.charge.service.front.FavoriteServiceI;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,10 +45,8 @@ public class FavoriteController  extends BaseController {
             return json;
         }
 
-
-
         try {
-            if (checkUser(favorite, json)) return json;
+            if (checkUser(favorite.getUserId(), json)) return json;
 
             json =  favoriteServiceI.addFavorite(favorite.getUserId(), favorite.getChargeNo());
             logger.info(JSON.toJSONString(json));
@@ -64,8 +62,8 @@ public class FavoriteController  extends BaseController {
 
     }
 
-    private boolean checkUser(@ModelAttribute("favorite") Favorite favorite, Json json) throws Exception {
-        if (checkUserById(favorite.getUserId())){
+    private boolean checkUser(Long userId, Json json) throws Exception {
+        if (!checkUserById(userId)){
             json.setMsg("参数错误");
             json.setResult_code(ReturnMsg.PARAMETER_ERROR);
             json.setSuccess(false);
@@ -83,7 +81,7 @@ public class FavoriteController  extends BaseController {
     @RequestMapping(value = "/removeFavorite", method = RequestMethod.POST)
     public Json removeFavorite(@ModelAttribute("favorite") Favorite favorite){
         Json json = new Json();
-        if (favorite.getId() == null || (favorite.getUserId() == null)){
+        if (isNull(favorite.getChargeNo()) || (favorite.getUserId() == null)){
             json.setMsg("参数错误");
             json.setResult_code(ReturnMsg.PARAMETER_ERROR);
             json.setSuccess(false);
@@ -92,10 +90,10 @@ public class FavoriteController  extends BaseController {
 
 
         try {
-            if (checkUser(favorite, json)) {
+            if (checkUser(favorite.getUserId(), json)) {
                 return json;
             }
-            json =  favoriteServiceI.removeFavorite(favorite.getUserId(), favorite.getId());
+            json =  favoriteServiceI.removeFavorite(favorite.getUserId(), favorite.getChargeNo());
             logger.info(JSON.toJSONString(json));
             return json;
         } catch (Exception e) {

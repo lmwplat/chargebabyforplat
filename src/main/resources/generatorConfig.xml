@@ -50,7 +50,9 @@
 		<table tableName="sys_user" domainObjectName="User"></table>-->
 		<!--<table tableName="sys_apk_version" domainObjectName="ApkVersion"></table>
 		<table tableName="sys_admin" domainObjectName="Admin"></table>-->
-		<table tableName="sys_favorite" domainObjectName="Favorite"></table>
+		<!--<table tableName="sys_favorite" domainObjectName="Favorite"></table>-->
+		<!--<table tableName="sys_collect" domainObjectName="Collect"></table>-->
+		<table tableName="sys_comment" domainObjectName="Comment"></table>
 
 		<!-- 有些表的字段需要指定java类型 <table schema="" tableName=""> <columnOverride column="" 
 			javaType="" /> </table> -->

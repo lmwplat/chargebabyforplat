@@ -35,4 +35,7 @@ public interface UserMapper {
 
     /**根据用户名，获取用户信息*/
     User selectByUsername(@Param("username")String username);
+
+    /**获取所有用户*/
+    List<User> selectAllUser();
 }
